@@ -145,7 +145,7 @@ def run_training(config_path: str, max_train_samples: int = None, max_val_sample
         greater_is_better=False,
         report_to="wandb" if use_wandb else "none",
         dataset_text_field="text",
-        max_seq_length=t_cfg.get("max_seq_length", 512),
+        max_length=t_cfg.get("max_seq_length", 512),
         seed=42
     )
 

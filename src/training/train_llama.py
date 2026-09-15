@@ -151,7 +151,7 @@ def run_llama_training(config_path: str, hf_token: str = None, max_train_samples
         greater_is_better=False,
         report_to="wandb" if use_wandb else "none",
         dataset_text_field="text",
-        max_seq_length=t_cfg.get("max_seq_length", 512),
+        max_length=t_cfg.get("max_seq_length", 512),
         seed=42
     )
 
