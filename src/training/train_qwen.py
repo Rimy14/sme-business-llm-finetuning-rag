@@ -149,14 +149,23 @@ def run_training(config_path: str, max_train_samples: int = None, max_val_sample
         seed=42
     )
 
-    # 8. SFTTrainer
-    trainer = SFTTrainer(
-        model=model,
-        train_dataset=train_ds,
-        eval_dataset=val_ds,
-        tokenizer=tokenizer,
-        args=sft_config
-    )
+    # 8. SFTTrainer (compatible with all TRL versions)
+    try:
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=train_ds,
+            eval_dataset=val_ds,
+            processing_class=tokenizer,
+            args=sft_config
+        )
+    except TypeError:
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=train_ds,
+            eval_dataset=val_ds,
+            tokenizer=tokenizer,
+            args=sft_config
+        )
 
     logger.info("Starting SFTTrainer fine-tuning...")
     trainer.train()
@@ -166,7 +175,6 @@ def run_training(config_path: str, max_train_samples: int = None, max_val_sample
     trainer.model.save_pretrained(output_dir)
     tokenizer.save_pretrained(output_dir)
 
-    # Save training summary
     metrics = trainer.state.log_history
     with open(os.path.join(output_dir, "training_metrics.json"), "w") as f:
         json.dump(metrics, f, indent=2)

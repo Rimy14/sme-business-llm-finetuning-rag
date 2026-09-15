@@ -155,14 +155,23 @@ def run_llama_training(config_path: str, hf_token: str = None, max_train_samples
         seed=42
     )
 
-    # 8. SFTTrainer
-    trainer = SFTTrainer(
-        model=model,
-        train_dataset=train_ds,
-        eval_dataset=val_ds,
-        tokenizer=tokenizer,
-        args=sft_config
-    )
+    # 8. SFTTrainer (compatible with all TRL versions)
+    try:
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=train_ds,
+            eval_dataset=val_ds,
+            processing_class=tokenizer,
+            args=sft_config
+        )
+    except TypeError:
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=train_ds,
+            eval_dataset=val_ds,
+            tokenizer=tokenizer,
+            args=sft_config
+        )
 
     logger.info("Starting Llama 3 SFTTrainer fine-tuning...")
     trainer.train()
