@@ -1,7 +1,7 @@
 """
 Qwen 2.5 7B Instruct SFTTrainer Pipeline (Tesla T4 Optimized)
 ------------------------------------------------------------
-Task: KAN-21 (Day 3)
+Task: KAN-21 (Day 3) & KAN-26 (Day 4)
 Domain: SME Daily Business (SME-Daily-Business)
 Model: Qwen/Qwen2.5-7B-Instruct
 Quantization: 4-bit NF4 Double Quantization
@@ -18,11 +18,9 @@ import logging
 from datasets import Dataset
 from transformers import (
     AutoTokenizer,
-    AutoModelForCausalLM,
-    TrainingArguments,
-    DataCollatorForSeq2Seq
+    AutoModelForCausalLM
 )
-from trl import SFTTrainer
+from trl import SFTTrainer, SFTConfig
 import wandb
 
 # Add project root to sys.path
@@ -122,9 +120,9 @@ def run_training(config_path: str, max_train_samples: int = None, max_val_sample
         dropout=peft_cfg.get("lora_dropout", 0.05)
     )
 
-    # 7. Training Arguments
+    # 7. SFTConfig
     t_cfg = cfg.get("training", {})
-    training_args = TrainingArguments(
+    sft_config = SFTConfig(
         output_dir=output_dir,
         num_train_epochs=t_cfg.get("num_train_epochs", 3),
         per_device_train_batch_size=t_cfg.get("per_device_train_batch_size", 4),
@@ -132,7 +130,7 @@ def run_training(config_path: str, max_train_samples: int = None, max_val_sample
         gradient_accumulation_steps=t_cfg.get("gradient_accumulation_steps", 4),
         learning_rate=float(t_cfg.get("learning_rate", 2e-4)),
         lr_scheduler_type=t_cfg.get("lr_scheduler_type", "cosine"),
-        warmup_ratio=t_cfg.get("warmup_ratio", 0.05),
+        warmup_steps=10,
         weight_decay=t_cfg.get("weight_decay", 0.01),
         fp16=True,
         bf16=False,
@@ -146,6 +144,8 @@ def run_training(config_path: str, max_train_samples: int = None, max_val_sample
         metric_for_best_model="eval_loss",
         greater_is_better=False,
         report_to="wandb" if use_wandb else "none",
+        dataset_text_field="text",
+        max_seq_length=t_cfg.get("max_seq_length", 512),
         seed=42
     )
 
@@ -154,10 +154,8 @@ def run_training(config_path: str, max_train_samples: int = None, max_val_sample
         model=model,
         train_dataset=train_ds,
         eval_dataset=val_ds,
-        dataset_text_field="text",
-        max_seq_length=t_cfg.get("max_seq_length", 512),
         tokenizer=tokenizer,
-        args=training_args
+        args=sft_config
     )
 
     logger.info("Starting SFTTrainer fine-tuning...")
