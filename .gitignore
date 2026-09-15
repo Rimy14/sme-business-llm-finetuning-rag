@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env
+
+# Large Datasets & Raw Files
+data/raw/*.jsonl
+data/raw/*.csv
+data/processed/*.json
+data/processed/*.jsonl
+data/synthetic/*.json
+
+# Model Checkpoints & Adapters (Store in Google Drive / Hugging Face Hub instead)
+models/checkpoints/
+models/v1/
+models/v2/
+models/v3/
+models/v4/
+*.safetensors
+*.bin
+*.pt
+
+# ChromaDB Vector Database local storage
+vector_db/
+chroma_db/
+
+# WandB & Training Logs
+wandb/
+logs/
+
+# OS Specific
+.DS_Store
+Thumbs.db
