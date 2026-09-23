@@ -16,8 +16,8 @@
 | **Day 3** | `KAN-21` | **Writing Training Pipelines** | 🟢 Completed | SFTTrainer scripts (`train_qwen.py`, `train_llama.py`), T4 float32 adapter stability guard, W&B |
 | **Day 4** | `KAN-26` | **Running v1 Training** | 🟢 Completed | Training v1 on 2,000 samples, VRAM monitoring, Checkpoint saves (`qwen_sme_v1`, `llama_sme_v1`) |
 | **Day 5** | `KAN-30` / `KAN-31` | **Testing v1 + Inference Evaluation** | 🟢 Completed | BLEU/ROUGE/BERTScore eval, comparative matrix, adapter verification |
-| **Day 6** | `KAN-35` | **Running v2 Training + Self-Testing v2** | 🟡 In Progress | 550+ synthetic Q&A (`train_v2.json`), train v2 models, 30 domain tests, v1-to-v2 lift analysis |
-| **Day 7** | `KAN-39` | **Preparing v3 Data (RAG-Aware)** | ⚪ Scheduled | Context injection into instruction pairs -> `train_v3.json` |
+| **Day 6** | `KAN-35` | **Running v2 Training + Self-Testing v2** | 🟢 Completed | 550+ synthetic Q&A (`train_v2.json`), train v2 models, 30 domain tests, v1-to-v2 lift analysis |
+| **Day 7** | `KAN-39` | **Preparing v3 Data (RAG-Aware Dataset)** | 🟡 In Progress | Context injection into instruction pairs -> `train_v3.json`, enterprise SOPs in `rag_docs/` |
 | **Day 8** | `KAN-43` | **Running v3 Training + Self-Testing v3** | ⚪ Scheduled | Train v3 models, compare v3 vs v2 performance |
 | **Day 9** | `KAN-48` | **RAG Integration + Testing** | ⚪ Scheduled | ChromaDB vector store + `all-MiniLM-L6-v2` embeddings, 200 query evaluation |
 | **Day 10** | `KAN-53` | **Running v4 Training + Testing** | ⚪ Scheduled | Train v4 RAG-aware production models, 100-query dual-model benchmark |
