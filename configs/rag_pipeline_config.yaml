@@ -1,0 +1,41 @@
+# RAG Pipeline Configuration for SME Daily Business (Day 9 - KAN-48)
+
+embedding:
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  device: "cuda"  # fallback to "cpu" if cuda unavailable
+  normalize_embeddings: true
+  embedding_dimension: 384
+
+vector_store:
+  type: "chromadb"
+  collection_name: "sme_sop_knowledge_base"
+  persist_directory: "data/chroma_db"
+  distance_metric: "cosine"
+
+chunking:
+  chunk_size: 400
+  chunk_overlap: 60
+  separator: "\n\n"
+
+retrieval:
+  top_k: 3
+  score_threshold: 0.25
+
+generator:
+  models:
+    qwen_v3:
+      base_model: "Qwen/Qwen2.5-7B-Instruct"
+      adapter_dir: "models/v3/qwen_sme_v3"
+    llama_v3:
+      base_model: "meta-llama/Meta-Llama-3-8B-Instruct"
+      adapter_dir: "models/v3/llama_sme_v3"
+  max_new_tokens: 256
+  temperature: 0.1
+  top_p: 0.9
+  repetition_penalty: 1.1
+
+evaluation:
+  test_queries_count: 200
+  test_dataset_path: "data/processed/test_v1.json"
+  val_dataset_path: "data/processed/val_v3.json"
+  report_output_path: "evaluation/day9/day9_rag_evaluation_report.json"
