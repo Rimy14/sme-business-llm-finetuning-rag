@@ -1,0 +1,39 @@
+# Qwen 2.5-7B Instruct Fine-Tuning Config (v4 - RAG-Aware - Day 10 - KAN-53)
+
+model:
+  base_model_id: "Qwen/Qwen2.5-7B-Instruct"
+  output_dir: "models/v4/qwen_sme_v4"
+  version: "v4"
+
+qlora:
+  r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+  bias: "none"
+  task_type: "CAUSAL_LM"
+  load_in_4bit: true
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_use_double_quant: true
+  bnb_4bit_compute_dtype: "float16"
+
+training:
+  num_train_epochs: 2
+  max_steps: 150
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 2
+  learning_rate: 0.0002
+  lr_scheduler_type: "cosine"
+  warmup_steps: 10
+  fp16: false
+  bf16: false
+  logging_steps: 10
+  eval_strategy: "steps"
+  eval_steps: 50
+  save_strategy: "steps"
+  save_steps: 50
+  save_total_limit: 2
+  max_length: 384
+  optim: "paged_adamw_32bit"
+  seed: 42
+  report_to: "wandb"
