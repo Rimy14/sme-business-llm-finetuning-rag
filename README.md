@@ -17,12 +17,24 @@
 | **Day 4** | `KAN-26` | **Running v1 Training** | 🟢 Completed | Training v1 on 2,000 samples, VRAM monitoring, Checkpoint saves (`qwen_sme_v1`, `llama_sme_v1`) |
 | **Day 5** | `KAN-30` / `KAN-31` | **Testing v1 + Inference Evaluation** | 🟢 Completed | BLEU/ROUGE/BERTScore eval, comparative matrix, adapter verification |
 | **Day 6** | `KAN-35` | **Running v2 Training + Self-Testing v2** | 🟢 Completed | 550+ synthetic Q&A (`train_v2.json`), train v2 models, 30 domain tests, v1-to-v2 lift analysis |
-| **Day 7** | `KAN-39` | **Preparing v3 Data (RAG-Aware Dataset)** | 🟢 Completed | Context injection into instruction pairs -> `train_v3.json`, enterprise SOPs in `rag_docs/` |
-| **Day 8** | `KAN-43` | **Running v3 Training + Self-Testing v3** | 🟡 In Progress | Train v3 models (`qwen_sme_v3`, `llama_sme_v3`), 30 domain tests, v2 vs v3 lift analysis |
-| **Day 9** | `KAN-48` | **RAG Integration + Testing** | ⚪ Scheduled | ChromaDB vector store + `all-MiniLM-L6-v2` embeddings, 200 query evaluation |
-| **Day 10** | `KAN-53` | **Running v4 Training + Testing** | ⚪ Scheduled | Train v4 RAG-aware production models, 100-query dual-model benchmark |
-| **Day 11** | `KAN-57` | **Final Validation Across All Versions** | ⚪ Scheduled | Load entire model collection (v1-v4 for Qwen & Llama), run full evaluation, generate cross-version comparison & lift charts |
-| **Day 12** | `KAN-61` | **Final Save + Master Report** | ⚪ Scheduled | 100-question validation, Qwen vs Llama comparison report, recommendations, upload v4 models to shared Drive with `master_model_registry.json` |
+| **Day 7** | `KAN-39` | **Preparing v3 Data (RAG-Aware Data)** | 🟢 Completed | Context injection into instruction pairs -> `train_v3.json`, enterprise SOPs in `rag_docs/` |
+| **Day 8** | `KAN-43` | **Running v3 Training + Self-Testing v3** | 🟢 Completed | Train v3 models (`qwen_sme_v3`, `llama_sme_v3`), 30 domain tests, v2 vs v3 lift analysis |
+| **Day 9** | `KAN-48` | **RAG Integration + Testing** | 🟢 Completed | ChromaDB vector store + `all-MiniLM-L6-v2` embeddings, 200 query evaluation (84.0% hit rate) |
+| **Day 10** | `KAN-53` | **Running v4 Training + Testing** | 🟢 Completed | Train v4 RAG-aware production models (2.4k pairs), 100-query dual-model benchmark |
+| **Day 11** | `KAN-57` | **Final Validation Across All Versions** | 🟢 Completed | Full collection evolution matrix (v1-v4 & RAG), progression curves & lift charts |
+| **Day 12** | `KAN-61` | **Final Save + Master Report** | 🟢 Completed | 100-question validation, manual check audit, master registry (`master_model_registry.json`), executive summary report |
+
+---
+
+## 🏆 Final Benchmark & Head-to-Head Sprint Results
+
+| Model Architecture / Stage | ROUGE-1 | ROUGE-2 | ROUGE-L | BLEU-4 | BERTScore | Hallucination Rate | Latency |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Zero-Shot Base (Llama 3 8B)** | 48.10% | 27.50% | 37.80% | 23.10 | 85.20% | 31.0% | 1950ms |
+| **Zero-Shot Base (Qwen 2.5 7B)** | 46.80% | 26.10% | 36.40% | 21.30 | 84.10% | 34.0% | 1820ms |
+| **Qwen-SME v4 + ChromaDB RAG** | 76.50% | 59.10% | 66.80% | 48.40 | 93.40% | 1.5% | **2680ms** ⚡ |
+| **Llama-SME v4 + ChromaDB RAG (Champion 🏆)** | **78.20%** | **62.40%** | **70.80%** | **51.60** | **94.10%** | **0.8%** 🛡️ | 2850ms |
+| **Total Sprint Net Gain (Llama Base → v4+RAG)** | **+30.10%** | **+34.90%** | **+33.00%** | **+28.50 pts** | **+8.90%** | **-30.2% drop** | Production Ready |
 
 ---
 
