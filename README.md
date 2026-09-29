@@ -1,6 +1,6 @@
 # 🚀 SME Daily Business LLM Fine-Tuning & RAG Framework
 
-**Engineer / Assignee:** Deepana Nirmal  
+**Engineer / Assignee:** Rimaz Nowfel  
 **Domain:** SME Daily Business (`SME-Daily-Business`)  
 **Target Models:** Qwen 2.5-7B Instruct (`Qwen/Qwen2.5-7B-Instruct`) & Llama 3 8B Instruct (`meta-llama/Meta-Llama-3-8B-Instruct`)  
 **Target Hardware:** Google Colab Tesla T4 GPU (15GB VRAM)
